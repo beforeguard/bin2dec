@@ -1,9 +1,29 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Binary To Decimal Converter</PageTitle>
 
-<MudTextField @bind-Value="BinaryValue" Label="Binary" Variant="Variant.Text"></MudTextField>
+<MudTextField
+    @bind-Value="BinaryValue"
+    Counter="8"
+    Immediate="true"
+    Label="Binary"
+    Variant="Variant.Text"
+    Validation="@(new Func<string, IEnumerable<string>>(Validate))" />
 
 @code {
-    public string BinaryValue { get; set; }
+    private static readonly string Bits = "01";
+
+    private string BinaryValue { get; set; }
+
+    private IEnumerable<string> Validate(string ch)
+    {
+        if (!string.IsNullOrEmpty(ch) && ch?.Length != 8)
+        {
+            yield return "Requires 8 bits";
+        }
+        if (ch.Any(c => !Bits.Contains(c)))
+        {
+            yield return "Bits can only be 0 or 1";
+        }
+    }
 }
