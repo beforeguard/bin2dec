@@ -1,10 +1,12 @@
 using BinaryToDecimal.Components;
+using BinaryToDecimal.Services;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
+    .AddScoped<BinaryToDecimalService>()
     .AddMudServices()
     .AddRazorComponents()
     .AddInteractiveServerComponents();

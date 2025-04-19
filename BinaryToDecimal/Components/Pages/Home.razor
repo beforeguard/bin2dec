@@ -1,5 +1,9 @@
 ﻿@page "/"
 
+@using BinaryToDecimal.Services;
+
+@inject BinaryToDecimalService BinaryToDecimalService;
+
 <PageTitle>Binary To Decimal Converter</PageTitle>
 
 <MudTextField
@@ -10,10 +14,19 @@
     Variant="Variant.Text"
     Validation="@(new Func<string, IEnumerable<string>>(Validate))" />
 
+<MudTextField @bind-Value="DecimalValue"
+              Label="Decimal"
+              Variant="Variant.Text"
+              ReadOnly="true"/>
+
+<MudButton OnClick="() => DecimalValue = BinaryToDecimalService.ConvertToDecimal(BinaryValue)" Variant="Variant.Filled">Convert</MudButton>
+
 @code {
     private static readonly string Bits = "01";
 
     private string BinaryValue { get; set; }
+
+    private string DecimalValue { get; set; }
 
     private IEnumerable<string> Validate(string ch)
     {
