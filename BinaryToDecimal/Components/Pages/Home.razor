@@ -30,10 +30,6 @@
 
     private IEnumerable<string> Validate(string ch)
     {
-        if (!string.IsNullOrEmpty(ch) && ch?.Length != 8)
-        {
-            yield return "Requires 8 bits";
-        }
         if (ch.Any(c => !Bits.Contains(c)))
         {
             yield return "Bits can only be 0 or 1";
